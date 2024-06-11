@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:provider/provider.dart';
+
 // import 'package:timer_count_down/timer_count_down.dart';
 import 'package:todoapp/model/todo_model.dart';
 
@@ -21,7 +22,6 @@ class SingleTaskScreen extends StatefulWidget {
 }
 
 class _SingleTaskScreenState extends State<SingleTaskScreen> {
-
   Timer? _timer;
   int _start = 600;
 
@@ -33,9 +33,6 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
 
     super.initState();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +53,7 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
           // height: 180,
           width: double.infinity,
           decoration: BoxDecoration(
-              color: whiteColor,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
@@ -112,12 +109,11 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
                       children: [
                         Text(
                           widget.todo.taskTitle,
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w500),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Container(
                           // height: 10,
-                          width:MediaQuery.of(context).size.width-100,
+                          width: MediaQuery.of(context).size.width - 100,
                           child: Text(
                             widget.todo.taskDescription,
                             maxLines: 2,
@@ -144,22 +140,23 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
                       width: 5,
                     ),
                     //
-                    (widget.todo.taskStatus=="Running")?
-                    TimerCountdown(
-                      format: CountDownTimerFormat.minutesSeconds,
-                      endTime: DateTime.now().add(
-                         Duration(
-                          minutes: int.parse(widget.todo.taskTimer),
-                          seconds: 00,
-                        ),
-                      ),
-                      onEnd: () {
-                        // final providerVar=Provider.of(context)
-                        // Function Called when timer is finished
-                        print("Timer finished");
-                      },
-                    ):
-                    Text(widget.todo.taskTimer + ' Min')
+                    (widget.todo.taskStatus == "Running")
+                        ? TimerCountdown(
+                            format: CountDownTimerFormat.minutesSeconds,
+                            endTime: DateTime.now().add(
+                              Duration(
+                                minutes: int.parse(widget.todo.taskTimer),
+                                seconds: 00,
+                              ),
+                            ),
+                            onEnd: () {
+
+                            },
+                          )
+                        : Text(
+                            widget.todo.taskTimer + ' Min',
+                            style: Theme.of(context).textTheme.titleSmall,
+                          )
                     // Text(_start.toString())
                   ],
                 )
@@ -171,7 +168,6 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
     );
   }
 
-
   openAlertDialog(int id) {
     final providerVar = Provider.of<TodoProvider>(context, listen: false);
 
@@ -179,7 +175,7 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: whiteColor,
+            backgroundColor: Theme.of(context).accentColor,
             title: Text(
               'Delete',
               style: TextStyle(color: redColor, fontWeight: FontWeight.bold),
@@ -195,12 +191,11 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))),
+                      borderRadius: BorderRadius.circular(30.0),)),
                 ),
                 child: Text(
                   "Cancel",
-                  style: TextStyle(
-                      color: darkBlueColor, fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.titleSmall
                 ),
               ),
               OutlinedButton(
@@ -215,13 +210,11 @@ class _SingleTaskScreenState extends State<SingleTaskScreen> {
                 ),
                 child: Text(
                   "Yes",
-                  style: TextStyle(
-                      color: darkBlueColor, fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.titleSmall
                 ),
               )
             ],
           );
         });
   }
-
 }

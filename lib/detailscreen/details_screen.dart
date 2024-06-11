@@ -85,7 +85,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: purpleColor,
+      backgroundColor: Theme.of(context).bottomAppBarColor,
       body: Column(
         children: [
           SizedBox(
@@ -124,7 +124,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
             height: height - 196,
             width: double.infinity,
             decoration: BoxDecoration(
-                color: lightGrayColor,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30))),
@@ -134,7 +134,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                 children: [
                   Text(
                     widget.title,
-                    style: TextStyle(fontSize: 25),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(
                     height: 10,
@@ -153,8 +153,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                       alignment: Alignment.topLeft,
                       child: Text(
                         'Status',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleMedium,
                       )),
                   SizedBox(
                     height: 10,
@@ -291,6 +290,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
 
   openBottomSheet() {
     return showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).cardColor,
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -302,7 +302,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
           child: Container(
             height: 460,
             decoration: BoxDecoration(
-                color: whiteColor, borderRadius: BorderRadius.circular(30)),
+                color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(30)),
             child: Form(
               key: formKey,
               child: Padding(
@@ -312,8 +312,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                     children: [
                       Text(
                         'Create Todo',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -325,8 +324,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           ),
                           Text(
                             'Todo Title',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(
                             height: 10,
@@ -334,6 +332,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
+                              style: TextStyle(color: blackColor),
                               controller: titleController,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -354,8 +353,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           ),
                           Text(
                             'Description',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(
                             height: 10,
@@ -363,6 +361,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
+                              style: TextStyle(color: blackColor),
                               controller: descController,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -383,8 +382,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           ),
                           Text(
                             'Timer',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(
                             height: 10,
@@ -392,6 +390,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
+                              style: TextStyle(color: blackColor),
                               controller: timerController,
                               validator: (value) {
                                 if (value!.isEmpty) {

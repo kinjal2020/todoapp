@@ -60,13 +60,21 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           title: Text(
             'Todo App',
-            style: TextStyle(color: blackColor),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           elevation: 0,
-          backgroundColor: whiteColor,
+          backgroundColor: Theme.of(context).backgroundColor,
+          actions: [
+            Switch(
+                value: providerVar.themeStatus,
+                onChanged: (value) {
+                  providerVar.themeStatus = value;
+                })
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -80,10 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       'My Todos',
-                      style: TextStyle(
-                          color: blackColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     InkWell(
                       onTap: () {
@@ -119,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      style: TextStyle(color: blackColor),
                       controller: searchController,
                       onChanged: (value) {
                         if (value.isEmpty) {
@@ -150,7 +156,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: height - 250,
                   child: (providerVar.todoList.isEmpty)
-                      ? Center(child: Text('Todo List is Empty'))
+                      ? Center(
+                          child: Text(
+                          'Todo List is Empty',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ))
                       : ListView.builder(
                           itemCount: providerVar.todoList.length,
                           itemBuilder: (context, index) {
@@ -171,6 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
     titleController.clear();
     descController.clear();
     return showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).cardColor,
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -182,7 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             height: 460,
             decoration: BoxDecoration(
-                color: whiteColor, borderRadius: BorderRadius.circular(30)),
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(30)),
             child: Form(
               key: formKey,
               child: Padding(
@@ -192,8 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Create Todo',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -205,8 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             'Todo Title',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(
                             height: 10,
@@ -214,6 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
+                              style: TextStyle(color: blackColor),
                               controller: titleController,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -234,8 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             'Description',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(
                             height: 10,
@@ -243,6 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
+                              style: TextStyle(color: blackColor),
                               controller: descController,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -263,8 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             'Timer',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           SizedBox(
                             height: 10,
@@ -272,6 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
+                              style: TextStyle(color: blackColor),
                               keyboardType: TextInputType.number,
                               controller: timerController,
                               validator: (value) {
